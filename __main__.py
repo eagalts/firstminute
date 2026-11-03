@@ -7,6 +7,5 @@ check = check_meminfo()
 print("> ", check.name)
 print("  ", check.status)
 print("  ", check.message)
-print("   * ", check.listOfChecks[0])
-print("   * ", check.listOfChecks[1])
-print("   * ", check.listOfChecks[2])
+for item in check.listOfChecks:
+    print("   * ", item)
