@@ -15,7 +15,7 @@ def check_meminfo():
         final_status = Status.OK
         final_message = "Memory Check: Without problems"
 
-        for line in meminfo:
+        for line in meminfo.splitlines():
             if line.startswith("memTotal:"):
                 memTotal = int(line.split()[1])
             elif line.startswith("memFree:"):
@@ -35,6 +35,9 @@ def check_meminfo():
         elif int(memTotal / 100 * GLOBAL_MEMORY_CRIT) > memAvailable:
             final_status = Status.CRIT  
             final_message = f"Memory Check: Less than {GLOBAL_MEMORY_CRIT}% available"
+
+        if memTotal == 0:
+            raise ValueError("memTotal is zero, cannot perform memory check.")
 
         check_result = Check(status = final_status, message = final_message, listOfChecks=[f"Total={memTotal}kB", f"Free={memFree}kB", f"Available={memAvailable}kB"])
 
