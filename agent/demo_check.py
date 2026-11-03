@@ -3,7 +3,7 @@ from core.status import Status
 from core.check import Check
 
 def demo_check():
-    expected = os.environ.get("EXPECTED", "OK")
+    expected = os.environ.get("EXPECTED", "OK").upper()
     if expected not in Status.__members__:
         raise ValueError(f"Invalid expected status: {expected}")
 
